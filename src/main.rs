@@ -22,7 +22,7 @@ fn validate_grading_system() {
 
 /// Calculate the grade
 fn calculate_grade(carrots: i32, nuts: i32, seeds: i32) -> i32 {
-    todo!()
+    (carrots + nuts) * (carrots + nuts + seeds)
 }
 
 /// Validate the safety system
@@ -31,9 +31,9 @@ fn validate_safety_system() {
     println!("Validating safety system...");
 
     let wolves_nearby = false;
-    let day_time = false;
+    let day_time = true;
     let has_carrot = true;
-    let friends_nearby = 2;
+    let friends_nearby = 4;
 
     let safety_status =
         calculate_safety_status(wolves_nearby, day_time, has_carrot, friends_nearby);
@@ -49,7 +49,13 @@ fn calculate_safety_status(
     has_carrot: bool,
     friends_nearby: i32,
 ) -> bool {
-    todo!()
+    if !wolves_nearby && day_time {
+        true
+    } else if has_carrot || friends_nearby > 3 {
+        true
+    } else {
+        false
+    }
 }
 
 /// Validate the simulation
@@ -67,7 +73,22 @@ fn validate_simulation() {
 
 /// Simulate the rabbit population
 fn simulate(starting_rabbits: i128) -> i32 {
-    todo!()
+    let mut surviving_rabbits = starting_rabbits;
+    let mut i = 0;
+
+    let days_survived = loop {
+        if surviving_rabbits == 1 {
+            break i;
+        }
+        if surviving_rabbits % 2 == 0 {
+            surviving_rabbits /= 2;
+        } else if surviving_rabbits % 2 != 0 {
+            surviving_rabbits = (surviving_rabbits * 3) + 1;
+        }
+        i += 1;
+    };
+
+    days_survived
 }
 
 #[cfg(test)]
